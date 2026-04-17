@@ -432,6 +432,154 @@
     }
     .failure-card .fix strong { font-weight: 700; }
 
+    /* ─── PDF ACCESSIBILITY SECTION ─────────────────── */
+    .pdf-section { background: var(--navy-mid); }
+    .pdf-intro {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      margin-top: 52px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .pdf-intro { grid-template-columns: 1fr; }
+    }
+
+    .pdf-intro-card,
+    .pdf-summary-card,
+    .pdf-best-card {
+      background: rgba(0,212,170,0.06);
+      border: 1px solid rgba(0,212,170,0.15);
+      border-radius: 14px;
+      padding: 30px 28px;
+    }
+
+    .pdf-intro-card p,
+    .pdf-summary-card p,
+    .pdf-best-card p {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.72;
+    }
+
+    .pdf-intro-card p + p,
+    .pdf-summary-card p + p,
+    .pdf-best-card p + p {
+      margin-top: 14px;
+    }
+
+    .pdf-summary-card {
+      background: rgba(124,92,191,0.08);
+      border-color: rgba(124,92,191,0.2);
+    }
+
+    .pdf-summary-card h3,
+    .pdf-best-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--off-white);
+      margin-bottom: 14px;
+    }
+
+    .pdf-summary-card strong,
+    .pdf-intro-card strong,
+    .pdf-best-card strong {
+      color: var(--off-white);
+    }
+
+    .pdf-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 860px) {
+      .pdf-pillars { grid-template-columns: 1fr; }
+    }
+
+    .pdf-pillar {
+      border-radius: 12px;
+      padding: 30px 24px;
+      border: 1px solid rgba(0,212,170,0.16);
+      background: rgba(10,22,40,0.35);
+    }
+
+    .pdf-pillar .level-badge {
+      margin-bottom: 14px;
+    }
+
+    .pdf-pillar h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--off-white);
+      margin-bottom: 10px;
+    }
+
+    .pdf-pillar p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.68;
+    }
+
+    .pdf-pillar ul,
+    .pdf-best-card ul {
+      list-style: none;
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .pdf-pillar li,
+    .pdf-best-card li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 17px;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .pdf-pillar li::before,
+    .pdf-best-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .pdf-pitfalls,
+    .pdf-rules,
+    .pdf-best-practices {
+      margin-top: 52px;
+    }
+
+    .pdf-subhead {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--off-white);
+      margin-bottom: 14px;
+    }
+
+    .pdf-subcopy {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .pdf-best-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 860px) {
+      .pdf-best-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── CLOSING CTA ────────────────────────────────── */
     .closing-section {
       padding: 120px 24px;
@@ -1044,6 +1192,197 @@
   </div>
 </section>
 
+<!-- ════════════════════ PDF ACCESSIBILITY ════════════════════ -->
+<section class="pdf-section" id="pdfs">
+  <div class="section-inner">
+    <span class="section-eyebrow">Hidden Risk</span>
+    <h2 class="section-headline">Online PDFs Are One of the Biggest Accessibility Liabilities on a Website</h2>
+    <p class="section-sub">
+      PDFs are often treated like separate documents, but they are still part of your website experience. If essential PDFs are inaccessible, your site can still fail ADA and WCAG expectations.
+    </p>
+
+    <div class="pdf-intro">
+      <div class="pdf-intro-card">
+        <p>
+          <strong>The core problem:</strong> PDFs frequently look fine visually while failing completely for screen readers, keyboard users, and people who rely on reflowed or highly readable content.
+        </p>
+        <p>
+          Many PDFs are exported from Word, InDesign, Canva, or scanned paper files without proper tags, reading order, headings, alt text, table markup, form labels, or document language.
+        </p>
+        <p>
+          That makes PDFs one of the most common hidden accessibility failures on otherwise modern websites, especially for governments, schools, healthcare providers, nonprofits, and organizations with years of legacy documents.
+        </p>
+      </div>
+
+      <div class="pdf-summary-card">
+        <h3>Why This Becomes a Serious Compliance Problem</h3>
+        <p>
+          A website can have an accessible theme, navigation, and forms, but still expose major legal and usability risk if key downloadable documents are image-based, untagged, poorly structured, or impossible to navigate with assistive technology.
+        </p>
+      </div>
+    </div>
+
+    <div class="pdf-pitfalls">
+      <h3 class="pdf-subhead">Key Pitfalls That Cause Most PDF Accessibility Failures</h3>
+      <p class="pdf-subcopy">
+        These are the issues that most often turn ordinary PDFs into compliance risks.
+      </p>
+
+      <div class="failures-grid">
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <rect x="5" y="5" width="22" height="22" rx="2"/>
+              <line x1="10" y1="11" x2="22" y2="11"/>
+              <line x1="10" y1="16" x2="22" y2="16"/>
+              <line x1="10" y1="21" x2="18" y2="21"/>
+            </svg>
+          </div>
+          <div class="fail-label">Structure</div>
+          <h4>Untagged PDFs</h4>
+          <p>Without a proper tag tree, screen readers do not understand headings, lists, tables, or document relationships.</p>
+          <div class="fix"><strong>Fix:</strong> Create and verify proper PDF tags that reflect real document structure.</div>
+        </div>
+
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <rect x="4" y="6" width="24" height="20" rx="2"/>
+              <line x1="8" y1="10" x2="24" y2="22"/>
+              <line x1="24" y1="10" x2="8" y2="22"/>
+            </svg>
+          </div>
+          <div class="fail-label">Content</div>
+          <h4>Scanned Image-Only Files</h4>
+          <p>Scanned PDFs are often just pictures of text, making them unusable unless OCR and full remediation are completed.</p>
+          <div class="fix"><strong>Fix:</strong> Run OCR, verify the text output, and rebuild structure, reading order, and tags.</div>
+        </div>
+
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <path d="M6 8h20"/>
+              <path d="M6 14h20"/>
+              <path d="M6 20h14"/>
+              <path d="M24 8v12"/>
+            </svg>
+          </div>
+          <div class="fail-label">Navigation</div>
+          <h4>Bad Reading Order</h4>
+          <p>Multi-column layouts, sidebars, and visual callouts often read in the wrong sequence for assistive technology.</p>
+          <div class="fix"><strong>Fix:</strong> Inspect and correct reading order in Acrobat and test with a screen reader.</div>
+        </div>
+
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M20 22l6 6"/>
+              <line x1="8" y1="24" x2="18" y2="24"/>
+            </svg>
+          </div>
+          <div class="fail-label">Images</div>
+          <h4>Missing Alt Text</h4>
+          <p>Charts, photographs, logos, and other meaningful visuals often have no text alternative inside the PDF.</p>
+          <div class="fix"><strong>Fix:</strong> Add meaningful alt text and mark decorative content as artifacts when appropriate.</div>
+        </div>
+
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <rect x="6" y="5" width="20" height="22" rx="2"/>
+              <line x1="10" y1="10" x2="22" y2="10"/>
+              <line x1="10" y1="15" x2="22" y2="15"/>
+              <line x1="10" y1="20" x2="18" y2="20"/>
+            </svg>
+          </div>
+          <div class="fail-label">Forms</div>
+          <h4>Unlabeled Form Fields</h4>
+          <p>PDF forms regularly fail because fields do not have labels, instructions, correct tab order, or error handling.</p>
+          <div class="fix"><strong>Fix:</strong> Define accessible field names, logical tab order, and clear instructions for every field.</div>
+        </div>
+
+        <div class="failure-card">
+          <div class="failure-card-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+              <path d="M8 8h16v16H8z"/>
+              <path d="M12 12h8"/>
+              <path d="M12 16h8"/>
+              <path d="M12 20h5"/>
+            </svg>
+          </div>
+          <div class="fail-label">Metadata</div>
+          <h4>Missing Language and Title</h4>
+          <p>Many PDFs are missing basic metadata such as document title and primary language, which hurts screen reader interpretation.</p>
+          <div class="fix"><strong>Fix:</strong> Set document title, language, bookmarks for long files, and verify the accessibility properties.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-rules">
+      <h3 class="pdf-subhead">What the Rules Mean After the Compliance Deadlines</h3>
+      <p class="pdf-subcopy">
+        The practical takeaway is simple: inaccessible PDFs are not exempt just because they are downloadable files.
+      </p>
+
+      <div class="pdf-pillars">
+        <div class="pdf-pillar">
+          <span class="level-badge badge-aa">Now</span>
+          <h3>Web Accessibility Expectations Already Apply</h3>
+          <p>Organizations commonly use WCAG Level AA as the benchmark for website accessibility, and PDFs that deliver services, information, forms, or public records are part of that digital experience.</p>
+        </div>
+
+        <div class="pdf-pillar">
+          <span class="level-badge badge-aaa">After Deadlines</span>
+          <h3>Public Entities Must Treat PDFs as Covered Digital Content</h3>
+          <p>After the applicable Title II deadlines, state and local governments must ensure their digital content is accessible, including web-posted documents unless a narrow exception applies.</p>
+          <ul>
+            <li>Larger public entities: April 24, 2026</li>
+            <li>Smaller public entities: April 24, 2027</li>
+          </ul>
+        </div>
+
+        <div class="pdf-pillar">
+          <span class="level-badge badge-a">Operational Reality</span>
+          <h3>Old PDFs Still Need a Decision</h3>
+          <p>Organizations cannot simply ignore legacy files. Each document should be evaluated and either remediated, converted to HTML, replaced with an accessible alternative, or removed if no longer needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-best-practices">
+      <h3 class="pdf-subhead">Best Practices for Proper Remediation</h3>
+      <p class="pdf-subcopy">
+        The most effective PDF compliance strategy is not just fixing files one by one. It is building a repeatable workflow for deciding what should be HTML, what should remain a PDF, and how accessible files are created from the beginning.
+      </p>
+
+      <div class="pdf-best-grid">
+        <div class="pdf-best-card">
+          <h3>Recommended Remediation Workflow</h3>
+          <ul>
+            <li>Inventory all PDFs on the site and prioritize high-traffic or high-importance documents first.</li>
+            <li>Decide whether each file should be remediated, converted to HTML, replaced, or removed.</li>
+            <li>Start with the source file whenever possible, using real headings, lists, tables, and meaningful alt text.</li>
+            <li>Export as a tagged PDF, then review tags, reading order, metadata, and form fields in Acrobat Pro.</li>
+            <li>Validate with automated tools and manual screen reader and keyboard testing before publishing.</li>
+          </ul>
+        </div>
+
+        <div class="pdf-best-card">
+          <h3>Long-Term Best Practices</h3>
+          <ul>
+            <li>Use HTML instead of PDF whenever the content does not truly need to be a downloadable document.</li>
+            <li>Never publish scanned or image-only PDFs without full OCR and accessibility remediation.</li>
+            <li>Create staff templates and training so new PDFs are accessible at the time of creation.</li>
+            <li>Establish an internal rule that no new inaccessible PDFs are posted to the website.</li>
+            <li>Review long documents for headings, bookmarks, table headers, proper reading order, and accessible form controls.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════ CLOSING CTA ════════════════════ -->
 <section class="closing-section" id="audit">
   <div class="closing-glow"></div>
@@ -1115,6 +1454,23 @@
   gsap.to(".failure-card", {
     scrollTrigger: { trigger:".failures-grid", start:"top 70%", toggleActions:"play none none reverse" },
     opacity:1, y:0, rotateX:0, duration:0.75, stagger:0.1, ease:"power2.out"
+  });
+
+  /* ── PDF section ── */
+  gsap.set([".pdf-intro-card", ".pdf-summary-card", ".pdf-pillar", ".pdf-best-card"], {
+    opacity: 0, y: 45
+  });
+  gsap.to([".pdf-intro-card", ".pdf-summary-card"], {
+    scrollTrigger: { trigger: ".pdf-intro", start: "top 72%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: "power2.out"
+  });
+  gsap.to(".pdf-pillar", {
+    scrollTrigger: { trigger: ".pdf-pillars", start: "top 75%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.75, stagger: 0.12, ease: "power2.out"
+  });
+  gsap.to(".pdf-best-card", {
+    scrollTrigger: { trigger: ".pdf-best-grid", start: "top 78%", toggleActions: "play none none reverse" },
+    opacity: 1, y: 0, duration: 0.75, stagger: 0.12, ease: "power2.out"
   });
 
   /* ── Closing CTA ── */
