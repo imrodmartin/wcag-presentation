@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADA & WCAG 2.1 AA Compliance — Web Accessibility Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --navy:        #0A1628;
+      --navy-mid:    #0D1F38;
+      --navy-light:  #112240;
+      --teal:        #00D4AA;
+      --teal-glow:   rgba(0,212,170,0.12);
+      --amber:       #F5A623;
+      --red:         #FF5555;
+      --purple:      #7C5CBF;
+      --off-white:   #F7F7F2;
+      --text-muted:  rgba(247,247,242,0.68);
+      --card-bg:     rgba(0,212,170,0.06);
+      --card-border: rgba(0,212,170,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--off-white); overflow-x: hidden; }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy);
+      overflow: hidden;
+    }
+    .hero-shapes-back,
+    .hero-shapes-mid { position: absolute; inset: 0; pointer-events: none; }
+
+    .shape-rect {
+      position: absolute;
+      width: 340px; height: 200px;
+      border: 2px solid rgba(0,212,170,0.12);
+      border-radius: 12px;
+      top: 12%; right: 7%;
+    }
+    .shape-circle {
+      position: absolute;
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: rgba(0,212,170,0.07);
+      bottom: 22%; left: 8%;
+    }
+    .shape-diamond {
+      position: absolute;
+      width: 55px; height: 55px;
+      background: rgba(245,166,35,0.18);
+      transform: rotate(45deg);
+      top: 58%; right: 16%;
+    }
+    .shape-dot {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--teal);
+      top: 28%; left: 7%;
+    }
+    .shape-ring {
+      position: absolute;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(124,92,191,0.18);
+      bottom: 15%; right: 22%;
+    }
+    .shape-tri {
+      position: absolute;
+      width: 0; height: 0;
+      border-left: 22px solid transparent;
+      border-right: 22px solid transparent;
+      border-bottom: 38px solid rgba(232,64,64,0.12);
+      top: 70%; left: 18%;
+    }
+
+    @keyframes floatA {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-16px) rotate(4deg); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-11px) rotate(-3deg); }
+    }
+    @keyframes floatC {
+      0%,100% { transform: translateY(0) rotate(45deg); }
+      50%      { transform: translateY(-9px) rotate(50deg); }
+    }
+    @keyframes floatD {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-14px) rotate(-2deg); }
+    }
+    .float-a { animation: floatA 7s ease-in-out infinite; }
+    .float-b { animation: floatB 9s ease-in-out infinite 1.5s; }
+    .float-c { animation: floatC 6s ease-in-out infinite 0.5s; }
+    .float-d { animation: floatD 8s ease-in-out infinite 2s; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 820px;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(53px, 8.4vw, 94px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--off-white);
+      margin-bottom: 24px;
+    }
+    .hero-title span { color: var(--teal); }
+    .hero-subtitle {
+      font-size: clamp(19px, 2.4vw, 23px);
+      font-weight: 400;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--navy);
+      padding: 16px 42px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-primary:hover { background: #00bfa0; transform: translateY(-2px); }
+
+    .hero-stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 52px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-size: 43px;
+      font-weight: 800;
+      color: var(--teal);
+      display: block;
+    }
+    .hero-stat .label {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+      50%      { transform: translateX(-50%) translateY(7px); opacity: 1; }
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    /* ─── SECTION SHARED ─────────────────────────────── */
+    section { padding: 100px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .section-headline {
+      font-size: clamp(38px, 4.8vw, 60px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--off-white);
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.65;
+    }
+
+    /* ─── ADA SECTION ────────────────────────────────── */
+    .ada-section { background: var(--navy-mid); }
+    .ada-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    @media (max-width: 780px) { .ada-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .ada-text p {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .ada-text p strong { color: var(--off-white); }
+
+    .risk-cards { display: flex; flex-direction: column; gap: 16px; }
+    .risk-card {
+      background: rgba(232,64,64,0.07);
+      border: 1px solid rgba(232,64,64,0.2);
+      border-radius: 10px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .risk-icon { flex-shrink: 0; margin-top: 2px; }
+    .risk-card h4 { font-size: 19px; font-weight: 600; color: var(--off-white); margin-bottom: 6px; }
+    .risk-card p  { font-size: 17px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── WCAG OVERVIEW ──────────────────────────────── */
+    .wcag-section { background: var(--navy); }
+    .wcag-levels {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+    @media (max-width: 700px) { .wcag-levels { grid-template-columns: 1fr; } }
+
+    .level-card {
+      border-radius: 12px;
+      padding: 32px 26px;
+      border: 1px solid;
+    }
+    .level-a  { background: rgba(124,92,191,0.07); border-color: rgba(124,92,191,0.2); }
+    .level-aa { background: rgba(0,212,170,0.07);  border-color: rgba(0,212,170,0.2);  }
+    .level-aaa{ background: rgba(245,166,35,0.07); border-color: rgba(245,166,35,0.2); }
+
+    .level-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .badge-a   { background: rgba(124,92,191,0.2); color: #c8b0ff; }
+    .badge-aa  { background: rgba(0,212,170,0.2);  color: var(--teal); }
+    .badge-aaa { background: rgba(245,166,35,0.2); color: var(--amber); }
+
+    .level-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+    .level-card p  { font-size: 17px; color: var(--text-muted); line-height: 1.65; }
+    .level-card.highlighted { position: relative; }
+    .level-card.highlighted::after {
+      content: 'Legal Standard';
+      position: absolute;
+      top: -12px; right: 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--teal);
+      color: var(--navy);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* ─── POUR SECTION ───────────────────────────────── */
+    .pour-section { background: var(--navy-mid); }
+    .pour-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .pour-intro-text { flex: 1; min-width: 280px; }
+
+    .pour-blocks { display: flex; flex-direction: column; gap: 48px; }
+    .pour-block {
+      background: rgba(0,212,170,0.04);
+      border: 1px solid rgba(0,212,170,0.12);
+      border-radius: 16px;
+      padding: 44px 40px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 640px) {
+      .pour-block { grid-template-columns: 1fr; padding: 28px 22px; }
+    }
+
+    .pour-icon-wrap {
+      width: 72px; height: 72px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pour-p .pour-icon-wrap { background: rgba(0,212,170,0.12); }
+    .pour-o .pour-icon-wrap { background: rgba(245,166,35,0.12); }
+    .pour-u .pour-icon-wrap { background: rgba(124,92,191,0.12); }
+    .pour-r .pour-icon-wrap { background: rgba(232,64,64,0.12);  }
+
+    .pour-block-content {}
+    .pour-letter {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .pour-p .pour-letter { color: var(--teal); }
+    .pour-o .pour-letter { color: var(--amber); }
+    .pour-u .pour-letter { color: #a88fff; }
+    .pour-r .pour-letter { color: #ff7070; }
+
+    .pour-block-content h3 {
+      font-size: clamp(44px, 6vw, 60px);
+      font-weight: 800;
+      color: var(--off-white);
+      margin-bottom: 12px;
+    }
+    .pour-block-content > p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+
+    .pour-points {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 24px;
+    }
+    @media (max-width: 560px) { .pour-points { grid-template-columns: 1fr; } }
+
+    .pour-point {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .pour-point-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .pour-p .pour-point-dot { background: var(--teal); }
+    .pour-o .pour-point-dot { background: var(--amber); }
+    .pour-u .pour-point-dot { background: #a88fff; }
+    .pour-r .pour-point-dot { background: #ff7070; }
+
+    /* ─── FAILURES SECTION ───────────────────────────── */
+    .failures-section { background: var(--navy); }
+    .failures-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 52px;
+    }
+    @media (max-width: 860px) { .failures-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .failures-grid { grid-template-columns: 1fr; } }
+
+    .failure-card {
+      background: rgba(0,212,170,0.06);
+      border: 1px solid rgba(0,212,170,0.15);
+      border-radius: 12px;
+      padding: 32px 26px;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .failure-card:hover {
+      background: rgba(0,212,170,0.1);
+      border-color: rgba(0,212,170,0.3);
+      transform: translateY(-5px);
+    }
+    .failure-card-icon { margin-bottom: 18px; }
+    .failure-card h4 { font-size: 36px; font-weight: 700; color: var(--off-white); margin-bottom: 10px; }
+    .failure-card .fail-label {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .failure-card p { font-size: 18px; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; }
+    .failure-card .fix {
+      font-size: 18px;
+      color: var(--teal);
+      font-weight: 500;
+      line-height: 1.5;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,212,170,0.12);
+    }
+    .failure-card .fix strong { font-weight: 700; }
+
+    /* ─── CLOSING CTA ────────────────────────────────── */
+    .closing-section {
+      padding: 120px 24px;
+      text-align: center;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .closing-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 500px 280px at 50% 60%, rgba(0,212,170,0.1), transparent);
+      pointer-events: none;
+    }
+    .closing-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .closing-content h2 {
+      font-size: clamp(64px, 8vw, 80px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--off-white);
+      margin-bottom: 20px;
+    }
+    .closing-content h2 span { color: var(--teal); }
+    .closing-content p {
+      font-size: 22px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+    .closing-content .btn-secondary {
+      display: inline-block;
+      border: 2px solid rgba(0,212,170,0.4);
+      color: var(--teal);
+      padding: 14px 36px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      text-decoration: none;
+      margin-left: 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .closing-content .btn-secondary:hover { border-color: var(--teal); background: rgba(0,212,170,0.08); }
+    @media (max-width: 480px) {
+      .closing-content .btn-secondary { margin-left: 0; margin-top: 12px; display: block; }
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,212,170,0.2), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 18px;
+      color: rgba(247,247,242,0.55);
+      background: var(--navy);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-shapes-back">
+    <div class="shape-rect float-a"></div>
+    <div class="shape-circle float-b"></div>
+  </div>
+  <div class="hero-shapes-mid">
+    <div class="shape-diamond float-c"></div>
+    <div class="shape-dot"></div>
+    <div class="shape-ring float-d"></div>
+    <div class="shape-tri float-b"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">ADA &amp; WCAG 2.1 AA</span>
+    <h1 class="hero-title">
+      Is Your Website<br><span>Legally Compliant?</span>
+    </h1>
+    <p class="hero-subtitle">
+      Over 61 million Americans live with a disability. Web accessibility isn't just an ethical obligation — it's a legal requirement. Understand what ADA compliance means for your website and how to fix it.
+    </p>
+    <a href="#audit" class="btn-primary">Get a Free Accessibility Audit</a>
+
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <span class="num">61M+</span>
+        <span class="label">Americans with a disability</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">4,605</span>
+        <span class="label">ADA lawsuits filed in 2023</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">96%</span>
+        <span class="label">of top sites have WCAG failures</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" onclick="document.querySelector('.ada-section').scrollIntoView({behavior:'smooth'})">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+</section>
+
+<!-- ════════════════════ ADA SECTION ════════════════════ -->
+<section class="ada-section" id="ada">
+  <div class="section-inner">
+    <span class="section-eyebrow">Legal Framework</span>
+    <h2 class="section-headline">What Is ADA Compliance for Websites?</h2>
+    <p class="section-sub">
+      The Americans with Disabilities Act (ADA) was signed into law in 1990. Courts have consistently extended its requirements to websites and digital products.
+    </p>
+
+    <div class="ada-grid ada-reveal">
+      <div class="ada-text">
+        <p>
+          <strong>Title III of the ADA</strong> prohibits discrimination based on disability in places of public accommodation. The Department of Justice has affirmed that websites qualify as places of public accommodation under the ADA.
+        </p>
+        <p>
+          While the ADA itself doesn't specify a technical standard, courts and the DOJ widely reference <strong>WCAG 2.1 Level AA</strong> as the benchmark for what constitutes an accessible website.
+        </p>
+        <p>
+          Any business with a website that serves the public — whether for e-commerce, services, or information — is exposed to ADA litigation if their site is inaccessible to people with disabilities such as blindness, low vision, deafness, motor impairments, or cognitive disabilities.
+        </p>
+        <p>
+          The Section 508 amendment further requires federal agencies and organizations receiving federal funding to meet WCAG 2.0 AA at minimum for all digital content.
+        </p>
+      </div>
+
+      <div class="risk-cards">
+        <div class="risk-card">
+          <div class="risk-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E84040" stroke-width="2" stroke-linecap="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Federal Lawsuits</h4>
+            <p>Plaintiffs can sue in federal court under the ADA. Settlements often reach $25,000–$100,000+, plus attorney fees and mandatory remediation costs.</p>
+          </div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E84040" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Demand Letters</h4>
+            <p>Serial litigants send demand letters requiring immediate remediation. Ignoring them escalates to costly litigation.</p>
+          </div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E84040" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Reputational Damage</h4>
+            <p>Public lawsuits damage brand reputation and signal that your company doesn't value inclusivity or equal access.</p>
+          </div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E84040" stroke-width="2" stroke-linecap="round">
+              <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Government Contracts at Risk</h4>
+            <p>Federal contractors and grant recipients must comply with Section 508 or risk losing funding and contract eligibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ WCAG OVERVIEW ════════════════════ -->
+<section class="wcag-section" id="wcag">
+  <div class="section-inner">
+    <span class="section-eyebrow">The Standard</span>
+    <h2 class="section-headline">WCAG 2.1 — Web Content Accessibility Guidelines</h2>
+    <p class="section-sub">
+      Published by the W3C, WCAG 2.1 is the internationally recognized technical standard for web accessibility. It is organized into three conformance levels.
+    </p>
+
+    <div class="wcag-levels">
+      <div class="level-card level-a">
+        <span class="level-badge badge-a">Level A</span>
+        <h3>Minimum</h3>
+        <p>The bare-minimum baseline. Removing these barriers is essential but rarely sufficient. Failing Level A blocks entire user groups from accessing your content.</p>
+      </div>
+      <div class="level-card level-aa highlighted">
+        <span class="level-badge badge-aa">Level AA</span>
+        <h3>Standard</h3>
+        <p>The widely-adopted legal standard. WCAG 2.1 AA covers the most significant accessibility barriers. Required by the DOJ for public-facing websites and Section 508 compliance.</p>
+      </div>
+      <div class="level-card level-aaa">
+        <span class="level-badge badge-aaa">Level AAA</span>
+        <h3>Enhanced</h3>
+        <p>The highest standard, often applied to specialized contexts (government, healthcare, education). Not required for all content but represents best practice for inclusion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ POUR PRINCIPLES ════════════════════ -->
+<section class="pour-section" id="pour">
+  <div class="section-inner">
+    <div class="pour-intro">
+      <div class="pour-intro-text">
+        <span class="section-eyebrow">The Four Principles</span>
+        <h2 class="section-headline">POUR — The Foundation of WCAG</h2>
+        <p class="section-sub">
+          Every WCAG guideline is organized under four core principles. Content must be Perceivable, Operable, Understandable, and Robust to be considered accessible.
+        </p>
+      </div>
+    </div>
+
+    <div class="pour-blocks">
+
+      <!-- PERCEIVABLE -->
+      <div class="pour-block pour-p pour-reveal">
+        <div class="pour-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#00D4AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="6"/>
+            <path d="M3 18c4-9 10.5-13 15-13s11 4 15 13"/>
+            <path d="M3 18c4 9 10.5 13 15 13s11-4 15-13"/>
+          </svg>
+        </div>
+        <div class="pour-block-content">
+          <div class="pour-letter">P — Perceivable</div>
+          <h3>Users Must Be Able to Perceive All Information</h3>
+          <p>
+            Information and user interface components must be presentable to users in ways they can perceive. Content cannot be invisible to all of a user's senses — users who are blind, deaf, or have low vision rely on alternative presentations of content.
+          </p>
+          <div class="pour-points">
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>All non-text content (images, icons, charts) must have descriptive <strong>alt text</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Pre-recorded audio must have a <strong>text transcript</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Pre-recorded video must have synchronized <strong>captions</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Live video streams must include <strong>live captions</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Color must not be the <strong>only visual means</strong> of conveying information</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Text must have a <strong>contrast ratio of at least 4.5:1</strong> against its background</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Large text (18pt+) must meet a <strong>3:1 contrast ratio</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Text must be <strong>resizable up to 200%</strong> without loss of content</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Images of text must be avoided; use <strong>real text</strong> instead</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Content must be <strong>adaptable</strong> — presentable in simpler form without losing meaning</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>No <strong>auto-playing audio</strong> longer than 3 seconds without user control</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Layout must use <strong>proper semantic structure</strong> (headings, lists, tables)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPERABLE -->
+      <div class="pour-block pour-o pour-reveal">
+        <div class="pour-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="4" width="20" height="28" rx="4"/>
+            <circle cx="18" cy="28" r="2"/>
+            <line x1="13" y1="10" x2="23" y2="10"/>
+            <line x1="13" y1="16" x2="20" y2="16"/>
+          </svg>
+        </div>
+        <div class="pour-block-content">
+          <div class="pour-letter">O — Operable</div>
+          <h3>Users Must Be Able to Operate the Interface</h3>
+          <p>
+            User interface components and navigation must be operable by everyone. Users with motor disabilities, tremors, or those unable to use a mouse rely on keyboards, switch controls, and other assistive input devices to interact with interfaces.
+          </p>
+          <div class="pour-points">
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>All functionality must be accessible via <strong>keyboard alone</strong> (no mouse required)</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>No <strong>keyboard traps</strong> — users must be able to navigate away from any component</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>A <strong>skip navigation link</strong> must be provided to bypass repetitive content blocks</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>All pages must have <strong>descriptive titles</strong> identifying their purpose</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Focus order must follow a <strong>logical, meaningful sequence</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>The purpose of each link must be clear from its <strong>link text alone</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Timed content must offer options to <strong>pause, stop, or extend</strong> time limits</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Moving or scrolling content must be able to be <strong>paused or stopped</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Nothing must <strong>flash more than 3 times per second</strong> (seizure risk)</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Multiple <strong>navigation methods</strong> must be available (search, sitemap, breadcrumbs)</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Visible <strong>keyboard focus indicator</strong> must be present on all interactive elements</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Touch targets must be at least <strong>44×44 CSS pixels</strong> in size</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNDERSTANDABLE -->
+      <div class="pour-block pour-u pour-reveal">
+        <div class="pour-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#a88fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="13"/>
+            <path d="M14 13.5a4 4 0 016 3.5c0 2-2 3-2 5"/>
+            <circle cx="18" cy="26" r="1" fill="#a88fff"/>
+          </svg>
+        </div>
+        <div class="pour-block-content">
+          <div class="pour-letter">U — Understandable</div>
+          <h3>Users Must Be Able to Understand Content and UI</h3>
+          <p>
+            Information and the operation of the user interface must be understandable to all users. Cognitive disabilities, learning differences, and language barriers all affect whether a user can comprehend your content and predict how your interface will behave.
+          </p>
+          <div class="pour-points">
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>The <strong>language of each page</strong> must be identified in the HTML <code>lang</code> attribute</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Language changes within the page must use the <strong><code>lang</code> attribute on the element</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>No <strong>unexpected context changes</strong> when a component receives focus</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Changing a setting must not automatically trigger a <strong>context change</strong> without warning</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Navigation must be <strong>consistent</strong> across all pages of the site</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Components with the same function must be <strong>labeled consistently</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Input fields must have <strong>visible, descriptive labels</strong> — not placeholder text alone</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Input errors must be clearly <strong>identified and described in text</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Labels or <strong>instructions must be provided</strong> when content requires user input</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Important forms must allow users to <strong>review, correct, and confirm</strong> submissions</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Error <strong>suggestion messages</strong> must be provided if input format is known</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Unusual words, jargon, and abbreviations must have <strong>definitions or expansions</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROBUST -->
+      <div class="pour-block pour-r pour-reveal">
+        <div class="pour-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#ff7070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="10 9 4 18 10 27"/>
+            <polyline points="26 9 32 18 26 27"/>
+            <line x1="15" y1="6" x2="21" y2="30"/>
+          </svg>
+        </div>
+        <div class="pour-block-content">
+          <div class="pour-letter">R — Robust</div>
+          <h3>Content Must Work With Current and Future Assistive Technologies</h3>
+          <p>
+            Content must be robust enough that it can be reliably interpreted by a wide variety of user agents, including assistive technologies like screen readers, braille displays, and voice control software. As technologies evolve, your content should remain accessible.
+          </p>
+          <div class="pour-points">
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>HTML must be <strong>valid and well-formed</strong> — no duplicate IDs, properly nested tags</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>All UI components must expose their <strong>name, role, and value</strong> programmatically</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Custom components must use appropriate <strong>ARIA roles and attributes</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span><strong>ARIA labels</strong> must be used on icon-only buttons and links</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Interactive elements must have <strong>meaningful accessible names</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span><strong>Status messages</strong> (success/error) must be conveyed to screen readers via ARIA live regions</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Dynamic content changes via JavaScript must be <strong>announced to assistive tech</strong></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Modal dialogs must <strong>trap focus</strong> and announce their role to screen readers</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Form elements must be <strong>programmatically associated</strong> with their labels via <code>for</code>/<code>id</code></span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Tables must use <strong><code>&lt;th&gt;</code> with scope attributes</strong> for headers</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>Avoid <strong>using ARIA to override</strong> native HTML semantics unnecessarily</span>
+            </div>
+            <div class="pour-point">
+              <div class="pour-point-dot"></div>
+              <span>UI component <strong>state changes</strong> (expanded, selected, checked) must be programmatically exposed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ COMMON FAILURES ════════════════════ -->
+<section class="failures-section" id="failures">
+  <div class="section-inner">
+    <span class="section-eyebrow">What's Broken</span>
+    <h2 class="section-headline">Most Common Accessibility Failures</h2>
+    <p class="section-sub">
+      The WebAIM Million annual report consistently finds the same failures across 96% of the top one million websites.
+    </p>
+
+    <div class="failures-grid">
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <rect x="4" y="8" width="24" height="16" rx="2"/>
+            <line x1="10" y1="16" x2="22" y2="16" stroke-opacity="0.4"/>
+            <line x1="10" y1="20" x2="18" y2="20" stroke-opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="fail-label">Perceivable</div>
+        <h4>Low Color Contrast</h4>
+        <p>Light gray text on white backgrounds fails the 4.5:1 contrast ratio. Found on 83% of home pages surveyed.</p>
+        <div class="fix"><strong>Fix:</strong> Use a contrast checker tool. Ensure body text meets 4.5:1 and large text meets 3:1 against its background color.</div>
+      </div>
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <rect x="3" y="5" width="26" height="18" rx="2"/>
+            <circle cx="16" cy="14" r="4"/>
+            <line x1="20" y1="22" x2="28" y2="28"/>
+          </svg>
+        </div>
+        <div class="fail-label">Perceivable</div>
+        <h4>Missing Alt Text</h4>
+        <p>Images without alt attributes are invisible to screen reader users. Found on 55% of home pages — the most common failure type.</p>
+        <div class="fix"><strong>Fix:</strong> Add descriptive <code>alt</code> attributes to all meaningful images. Use <code>alt=""</code> for decorative images only.</div>
+      </div>
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <path d="M6 6h20M6 12h12M6 18h16M6 24h8"/>
+          </svg>
+        </div>
+        <div class="fail-label">Robust</div>
+        <h4>Empty or Missing Form Labels</h4>
+        <p>Input fields without associated labels leave screen reader users unable to determine what to enter. Found on 46% of home pages.</p>
+        <div class="fix"><strong>Fix:</strong> Use <code>&lt;label for="id"&gt;</code> elements associated with every form input. Never rely on placeholder text as a label.</div>
+      </div>
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <path d="M6 16s2-6 10-6 10 6 10 6-2 6-10 6-10-6-10-6z"/>
+            <circle cx="16" cy="16" r="3"/>
+            <line x1="4" y1="4" x2="28" y2="28"/>
+          </svg>
+        </div>
+        <div class="fail-label">Operable</div>
+        <h4>Missing or Invisible Focus Indicators</h4>
+        <p>Removing the browser's default outline via CSS makes keyboard navigation impossible for sighted keyboard users.</p>
+        <div class="fix"><strong>Fix:</strong> Never use <code>outline: none</code> without providing a custom, clearly visible focus style. Use <code>:focus-visible</code> for a clean approach.</div>
+      </div>
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <path d="M16 4L4 28h24L16 4z"/>
+            <line x1="16" y1="14" x2="16" y2="20"/>
+            <circle cx="16" cy="24" r="1" fill="#E84040"/>
+          </svg>
+        </div>
+        <div class="fail-label">Understandable</div>
+        <h4>Ambiguous Link Text</h4>
+        <p>"Click here," "read more," and "learn more" links provide no context out of the page flow — a critical barrier for screen reader users navigating by links.</p>
+        <div class="fix"><strong>Fix:</strong> Write descriptive link text: "Read our accessibility guide" instead of "read more." Use <code>aria-label</code> if the surrounding context cannot be changed.</div>
+      </div>
+
+      <div class="failure-card">
+        <div class="failure-card-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E84040" stroke-width="1.8" stroke-linecap="round">
+            <path d="M6 8h20v4H6zM6 20h20v4H6z"/>
+            <line x1="10" y1="12" x2="10" y2="20"/>
+            <line x1="22" y1="12" x2="22" y2="20"/>
+          </svg>
+        </div>
+        <div class="fail-label">Robust</div>
+        <h4>Missing Page Language</h4>
+        <p>Without a <code>lang</code> attribute on the <code>&lt;html&gt;</code> element, screen readers may use the wrong language voice profile, mangling pronunciation entirely.</p>
+        <div class="fix"><strong>Fix:</strong> Always declare <code>&lt;html lang="en"&gt;</code> (or the appropriate language code). For multilingual pages, add <code>lang</code> attributes to individual sections.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CLOSING CTA ════════════════════ -->
+<section class="closing-section" id="audit">
+  <div class="closing-glow"></div>
+  <div class="closing-content">
+    <span class="section-eyebrow" style="display:block;margin-bottom:16px;">Take Action</span>
+    <h2>Don't Wait for a <span>Lawsuit</span><br>to Take Accessibility Seriously</h2>
+    <p>
+      Accessibility audits identify every WCAG 2.1 AA violation on your site and deliver a prioritized remediation roadmap — before a demand letter lands in your inbox.
+    </p>
+    <a href="mailto:accessibility@example.com" class="btn-primary">Request a Free Audit</a>
+    <a href="#pour" class="btn-secondary">Review the POUR Principles</a>
+  </div>
+</section>
+
+<footer>
+  <p>Content based on WCAG 2.1 published by the W3C Web Accessibility Initiative (WAI). &copy; 2026 Web Accessibility Guide.</p>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Hero entrance ── */
+  gsap.set([".hero-eyebrow",".hero-title",".hero-subtitle",".hero-cta",".hero-stat-row",".scroll-indicator"], {
+    opacity: 0, y: 30
+  });
+  const heroTl = gsap.timeline({ delay: 0.25 });
+  heroTl
+    .to(".hero-eyebrow",    { opacity:1, y:0, duration:0.6, ease:"power3.out" })
+    .to(".hero-title",      { opacity:1, y:0, duration:1.0, ease:"power3.out" }, "-=0.3")
+    .to(".hero-subtitle",   { opacity:1, y:0, duration:0.8, ease:"power2.out" }, "-=0.5")
+    .to(".hero-cta",        { opacity:1, y:0, duration:0.7, ease:"power2.out" }, "-=0.4")
+    .to(".hero-stat-row",   { opacity:1, y:0, duration:0.7, ease:"power2.out" }, "-=0.3")
+    .to(".scroll-indicator",{ opacity:1, y:0, duration:0.5, ease:"power2.out" }, "-=0.2");
+
+  /* ── Mouse parallax ── */
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left)  / rect.width  - 0.5;
+    const yPct = (e.clientY - rect.top)   / rect.height - 0.5;
+    gsap.to(".hero-shapes-back", { duration:2.0, x: xPct*-45, y: yPct*-22, ease:"power1.out" });
+    gsap.to(".hero-shapes-mid",  { duration:1.5, x: xPct*-22, y: yPct*-11, ease:"power1.out" });
+    gsap.to(".hero-content",     { duration:1.2, x: xPct*8,   y: yPct*5,   ease:"power1.out" });
+  });
+
+  /* ── ADA section ── */
+  gsap.from(".ada-grid", {
+    scrollTrigger: { trigger:".ada-section", start:"top 70%" },
+    opacity:0, y:40, duration:0.9, ease:"power2.out"
+  });
+
+  /* ── WCAG level cards ── */
+  gsap.set(".level-card", { opacity:0, y:45, rotateX:15, transformPerspective:800, transformOrigin:"top center" });
+  gsap.to(".level-card", {
+    scrollTrigger: { trigger:".wcag-levels", start:"top 72%", toggleActions:"play none none reverse" },
+    opacity:1, y:0, rotateX:0, duration:0.75, stagger:0.13, ease:"power2.out"
+  });
+
+  /* ── POUR blocks ── */
+  gsap.utils.toArray(".pour-reveal").forEach((block, i) => {
+    gsap.from(block, {
+      scrollTrigger: { trigger: block, start:"top 80%", toggleActions:"play none none reverse" },
+      opacity:0, x: i % 2 === 0 ? -40 : 40, duration:0.85, ease:"power2.out"
+    });
+  });
+
+  /* ── Failure cards ── */
+  gsap.set(".failure-card", { opacity:0, y:55, rotateX:18, transformPerspective:900, transformOrigin:"top center" });
+  gsap.to(".failure-card", {
+    scrollTrigger: { trigger:".failures-grid", start:"top 70%", toggleActions:"play none none reverse" },
+    opacity:1, y:0, rotateX:0, duration:0.75, stagger:0.1, ease:"power2.out"
+  });
+
+  /* ── Closing CTA ── */
+  gsap.from(".closing-content", {
+    scrollTrigger: { trigger:".closing-section", start:"top 72%" },
+    opacity:0, y:45, duration:1.0, ease:"power3.out"
+  });
+</script>
+</body>
+</html>
